@@ -31,4 +31,4 @@ Keybindings
 - Super + M:          Exit Hyprland
 - Super + Shift + P: Screenshot (3s delay)
 - Super + Shift + ↑↓: Adjust brightness (±5%)
-
+- Swipe from Edge:    Change Workspace
