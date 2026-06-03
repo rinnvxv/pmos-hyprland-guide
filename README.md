@@ -32,3 +32,5 @@ Keybindings
 - Super + Shift + P: Screenshot (3s delay)
 - Super + Shift + ↑↓: Adjust brightness (±5%)
 - Swipe from Edge:    Change Workspace
+
+Tested on: OnePlus 6T (fajita, SDM845) and Google Pixel 3 (blueline, SDM845).
