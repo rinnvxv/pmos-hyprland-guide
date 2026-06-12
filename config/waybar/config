@@ -26,8 +26,8 @@
 
   "battery": {
     "format": "{capacity}%",
-    "format-charging": " {capacity}%",
-    "format-full": "  {capacity}%"
+    "format-charging": "~{capacity}%",
+    "format-full": "={capacity}%"
   },
 
   "cpu": {
@@ -35,6 +35,6 @@
   },
 
   "memory": {
-    "format": "  {used}MB"
+    "format": "  {used}GB"
   }
 }
