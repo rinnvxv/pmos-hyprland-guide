@@ -71,7 +71,7 @@ sudo apk add --no-interactive \
     libxcursor-dev re2-dev muparser-dev \
     hyprwire hyprwayland-scanner pugixml-dev hyprutils-dev aquamarine-dev \
     hyprlang-dev hyprcursor-dev hyprgraphics-dev xcb-util-errors-dev tomlplusplus-dev \
-    python3 pkgconf
+    python3 pkgconf glm-dev glibmm-dev pulseaudio-dev
 
 # ──────────────────────────────────────────────────────────
 # 5. Build hyprwire from source (if pkg-config not found)
