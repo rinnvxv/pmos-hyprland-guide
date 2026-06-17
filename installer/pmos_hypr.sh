@@ -151,9 +151,12 @@ fi
 log "========================================"
 log "Installation complete!"
 log ""
-log "Reboot and select Hyprland in TinyDM."
+log "Reboot After 5 sec and select Hyprland in LockScreen."
 log ""
 log "[hyprgrass] On your first Hyprland boot,"
 log "hyprgrass will be installed automatically"
 log "for touch gesture support."
 log "========================================"
+
+sleep 5
+sudo reboot
