@@ -1,7 +1,7 @@
 #!/bin/ash
 # ============================================================
 #  pmos_hypr.sh
-#  postmarketOS — Hyprland + hyprgrass + file selector 설치
+#  postmarketOS — Hyprland + hyprgrass + file selector
 #  target shell: ash
 # ============================================================
 
@@ -14,30 +14,28 @@ log()  { printf '\033[1;32m[+]\033[0m %s\n' "$1"; }
 warn() { printf '\033[1;33m[!]\033[0m %s\n' "$1"; }
 die()  { printf '\033[1;31m[x]\033[0m %s\n' "$1"; exit 1; }
 
-# 종료 시 임시 디렉토리 자동 삭제
 cleanup() {
     if [ -d "$TEMP_DIR" ]; then
-        log "임시 디렉토리 삭제 중: $TEMP_DIR"
+        log "Cleaning up temp directory: $TEMP_DIR"
         rm -rf "$TEMP_DIR"
     fi
 }
 trap cleanup EXIT
 
-# 임시 디렉토리 생성
 mkdir -p "$TEMP_DIR"
-log "임시 디렉토리 생성: $TEMP_DIR"
+log "Created temp directory: $TEMP_DIR"
 
 # ──────────────────────────────────────────────────────────
-# 1. 시스템 업그레이드
+# 1. System upgrade
 # ──────────────────────────────────────────────────────────
-log "시스템 업그레이드 중..."
-sudo apk upgrade -y
+log "Upgrading system..."
+sudo apk upgrade
 
 # ──────────────────────────────────────────────────────────
-# 2. Hyprland 및 기본 패키지 설치
+# 2. Hyprland & base packages
 # ──────────────────────────────────────────────────────────
-log "Hyprland 및 기본 패키지 설치 중..."
-sudo apk add -y \
+log "Installing Hyprland and base packages..."
+sudo apk add \
     hyprland hyprland-protocols xwayland \
     alacritty waybar swaybg swaync fuzzel \
     wvkbd jq brightnessctl grim tinydm \
@@ -46,24 +44,24 @@ sudo apk add -y \
 sudo chmod +s /usr/bin/brightnessctl
 
 # ──────────────────────────────────────────────────────────
-# 3. xdg-desktop-portal (파일 선택창) 설치
+# 3. xdg-desktop-portal (file selector)
 # ──────────────────────────────────────────────────────────
-log "xdg-desktop-portal 설치 중..."
-sudo apk add -y \
+log "Installing xdg-desktop-portal..."
+sudo apk add \
     xdg-desktop-portal \
     xdg-desktop-portal-hyprland \
     xdg-desktop-portal-gtk
 
-log "xdg-desktop-portal 설정 파일 생성 중..."
+log "Creating xdg-desktop-portal config..."
 mkdir -p "$HOME/.config/xdg-desktop-portal"
 printf '[preferred]\ndefault=hyprland;gtk\norg.freedesktop.impl.portal.FileChooser=gtk\n' \
     > "$HOME/.config/xdg-desktop-portal/portals.conf"
 
 # ──────────────────────────────────────────────────────────
-# 4. hyprpm 빌드 의존성 설치
+# 4. hyprpm build dependencies
 # ──────────────────────────────────────────────────────────
-log "hyprpm 빌드 의존성 설치 중..."
-sudo apk add -y \
+log "Installing hyprpm build dependencies..."
+sudo apk add \
     git cmake make g++ meson \
     cpio mesa-dev libxcb-dev xcb-util-wm-dev \
     pixman-dev libdrm-dev wayland-protocols wayland-dev \
@@ -73,10 +71,10 @@ sudo apk add -y \
     python3 pkgconf
 
 # ──────────────────────────────────────────────────────────
-# 5. hyprwire 소스 빌드 (pkg-config 파일 없을 경우 대비)
+# 5. Build hyprwire from source (if pkg-config not found)
 # ──────────────────────────────────────────────────────────
 if ! pkg-config --modversion hyprwire > /dev/null 2>&1; then
-    log "hyprwire pkg-config 없음 — 소스에서 빌드 중..."
+    log "hyprwire pkg-config not found — building from source..."
     cd "$TEMP_DIR"
     git clone https://github.com/hyprwm/hyprwire
     cd hyprwire
@@ -87,66 +85,67 @@ if ! pkg-config --modversion hyprwire > /dev/null 2>&1; then
 fi
 
 # ──────────────────────────────────────────────────────────
-# 6. Hyprland 소스 클론 및 hyprpm 빌드
+# 6. Clone Hyprland source & build hyprpm
 # ──────────────────────────────────────────────────────────
-log "Hyprland 소스 클론 중... ($HYPRLAND_VERSION)"
+log "Cloning Hyprland source... ($HYPRLAND_VERSION)"
 cd "$TEMP_DIR"
 git clone https://github.com/hyprwm/Hyprland
 cd Hyprland
 git checkout "$HYPRLAND_VERSION"
 git submodule update --init subprojects/udis86
 
-log "hyprpm 빌드 중..."
+log "Building hyprpm..."
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --target hyprpm -j$(nproc)
 
-log "hyprpm 설치 중..."
+log "Installing hyprpm..."
 sudo cmake --install build --component hyprpm
 
-# PATH에 없는 경우 수동 복사
 if ! command -v hyprpm > /dev/null 2>&1; then
-    warn "hyprpm이 PATH에 없습니다. /usr/local/bin에 복사합니다."
+    warn "hyprpm not in PATH — copying to /usr/local/bin..."
     sudo cp "$TEMP_DIR/Hyprland/build/hyprpm/hyprpm" /usr/local/bin/
     sudo chmod +x /usr/local/bin/hyprpm
 fi
 
 export PATH="/usr/local/bin:$PATH"
-command -v hyprpm > /dev/null 2>&1 || die "hyprpm 설치 실패"
-log "hyprpm 설치 완료"
+command -v hyprpm > /dev/null 2>&1 || die "hyprpm installation failed"
+log "hyprpm installed successfully"
 
 # ──────────────────────────────────────────────────────────
-# 7. hyprgrass 설치
+# 7. Install hyprgrass
 # ──────────────────────────────────────────────────────────
-log "hyprgrass 설치 중..."
+log "Installing hyprgrass..."
 hyprpm update
 hyprpm add https://github.com/horriblename/hyprgrass
 hyprpm enable hyprgrass
 
 # ──────────────────────────────────────────────────────────
-# 8. dotfiles 다운로드
+# 8. Download & apply dotfiles
 # ──────────────────────────────────────────────────────────
-log "dotfiles 다운로드 중..."
+log "Downloading dotfiles..."
 cd "$TEMP_DIR"
-git clone https://github.com/rinnvxv/pmos-hyprland-guide repo 2>/dev/null || {
-    warn "repo 클론 실패 — 수동으로 복사해주세요."
+git clone https://github.com/rinnvxv/pmos-hyprland-guide repo || {
+    warn "Failed to clone repo — please copy dotfiles manually."
 }
 
 if [ -d "$TEMP_DIR/repo/installer/config" ]; then
     mkdir -p "$HOME/.config"
     cp -r "$TEMP_DIR/repo/installer/config/." "$HOME/.config/"
-    log "dotfiles 복사 완료 → ~/.config/"
+    log "Dotfiles applied → ~/.config/"
+else
+    warn "installer/config not found in repo — skipping dotfiles."
 fi
 
 # ──────────────────────────────────────────────────────────
-# 완료 (cleanup trap이 TEMP_DIR 자동 삭제)
+# Done (cleanup trap removes TEMP_DIR automatically)
 # ──────────────────────────────────────────────────────────
 log "========================================"
-log "설치 완료!"
+log "Installation complete!"
 log ""
-log "재부팅 후 TinyDM에서 Hyprland를 선택하세요."
+log "Reboot and select Hyprland in TinyDM."
 log ""
-log "[파일 선택창] 재부팅 시 자동 시작됩니다."
-log "수동으로 띄우려면:"
+log "[File selector] Portal starts automatically on boot."
+log "To start manually:"
 log "  /usr/libexec/xdg-desktop-portal &"
 log "  /usr/libexec/xdg-desktop-portal-hyprland &"
 log "========================================"
