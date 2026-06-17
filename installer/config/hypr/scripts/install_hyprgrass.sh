@@ -18,7 +18,7 @@ hyprpm enable hyprgrass
 printf '%s\n' "$RESOLV_BACKUP" | sudo tee /etc/resolv.conf > /dev/null
 echo "[+] DNS restored"
 
-sed -i '/install_hyprgrass\.sh/d' ~/.config/hypr/hyprland.conf
+sed -i 's|exec-once = \$terminal -e sh -c "~/.config/hypr/scripts/install_hyprgrass.sh; exec \$SHELL"|exec-once = \$terminal -e sh -c "neofetch; exec \$SHELL"|' ~/.config/hypr/hyprland.conf
 
 echo "[+] hyprgrass installed! This window will close in 3 seconds."
 sleep 3
