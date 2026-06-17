@@ -8,9 +8,9 @@ hyprpm update || {
     hyprpm update
 }
 
-echo "y" | hyprpm add https://github.com/horriblename/hyprgrass || {
+echo "y" | hyprpm add -v https://github.com/horriblename/hyprgrass || {
     printf 'nameserver 8.8.8.8\n' | sudo tee /etc/resolv.conf > /dev/null
-    echo "y" | hyprpm add https://github.com/horriblename/hyprgrass
+    echo "y" | hyprpm add -v https://github.com/horriblename/hyprgrass
 }
 
 hyprpm enable hyprgrass
