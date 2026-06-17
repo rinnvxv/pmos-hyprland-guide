@@ -92,7 +92,16 @@ fi
 # ──────────────────────────────────────────────────────────
 log "Cloning Hyprland source... ($HYPRLAND_VERSION)"
 cd "$TEMP_DIR"
-git clone https://github.com/hyprwm/Hyprland
+RESOLV_BACKUP=$(cat /etc/resolv.conf)
+git clone https://github.com/hyprwm/Hyprland || {
+    warn "git clone failed — setting DNS to 8.8.8.8 and retrying..."
+    printf 'nameserver 8.8.8.8
+' | sudo tee /etc/resolv.conf > /dev/null
+    git clone https://github.com/hyprwm/Hyprland || die "git clone failed even after DNS change"
+    printf '%s
+' "$RESOLV_BACKUP" | sudo tee /etc/resolv.conf > /dev/null
+    log "DNS restored"
+}
 cd Hyprland
 git checkout "$HYPRLAND_VERSION"
 git submodule update --init subprojects/udis86
@@ -137,10 +146,9 @@ fi
 log "========================================"
 log "Installation complete!"
 log ""
-log "Reboot and select Hyprland in TinyDM."
+log "Reboot and select Hyprland in LockScreen."
 log ""
-log "[File selector] Portal starts automatically on boot."
-log "To start manually:"
-log "  /usr/libexec/xdg-desktop-portal &"
-log "  /usr/libexec/xdg-desktop-portal-hyprland &"
+og "[hyprgrass] On your first Hyprland boot,"
+log "hyprgrass will be installed automatically"
+log "for touch gesture support."
 log "========================================"
