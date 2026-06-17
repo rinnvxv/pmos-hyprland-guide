@@ -29,13 +29,13 @@ log "Created temp directory: $TEMP_DIR"
 # 1. System upgrade
 # ──────────────────────────────────────────────────────────
 log "Upgrading system..."
-sudo apk upgrade
+sudo apk upgrade || warn "System upgrade failed (package conflict) — continuing anyway..."
 
 # ──────────────────────────────────────────────────────────
 # 2. Hyprland & base packages
 # ──────────────────────────────────────────────────────────
 log "Installing Hyprland and base packages..."
-sudo apk add \
+sudo apk add --no-interactive \
     hyprland hyprland-protocols xwayland \
     alacritty waybar swaybg swaync fuzzel \
     wvkbd jq brightnessctl grim tinydm \
@@ -47,7 +47,7 @@ sudo chmod +s /usr/bin/brightnessctl
 # 3. xdg-desktop-portal (file selector)
 # ──────────────────────────────────────────────────────────
 log "Installing xdg-desktop-portal..."
-sudo apk add \
+sudo apk add --no-interactive \
     xdg-desktop-portal \
     xdg-desktop-portal-hyprland \
     xdg-desktop-portal-gtk
@@ -61,7 +61,7 @@ printf '[preferred]\ndefault=hyprland;gtk\norg.freedesktop.impl.portal.FileChoos
 # 4. hyprpm build dependencies
 # ──────────────────────────────────────────────────────────
 log "Installing hyprpm build dependencies..."
-sudo apk add \
+sudo apk add --no-interactive \
     git cmake make g++ meson \
     cpio mesa-dev libxcb-dev xcb-util-wm-dev \
     pixman-dev libdrm-dev wayland-protocols wayland-dev \
