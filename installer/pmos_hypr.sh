@@ -136,6 +136,11 @@ if [ -d "$TEMP_DIR/repo/installer/config" ]; then
     mkdir -p "$HOME/.config"
     cp -r "$TEMP_DIR/repo/installer/config/." "$HOME/.config/"
     log "Dotfiles applied → ~/.config/"
+    # Set permission to install_hyprgrass.sh
+    if [ -f "$HOME/.config/hypr/scripts/install_hyprgrass.sh" ]; then
+        chmod +x "$HOME/.config/hypr/scripts/install_hyprgrass.sh"
+        log "Permissions set for install_hyprgrass.sh"
+    fi
 else
     warn "installer/config not found in repo — skipping dotfiles."
 fi
@@ -146,7 +151,7 @@ fi
 log "========================================"
 log "Installation complete!"
 log ""
-log "Reboot and select Hyprland in LockScreen."
+log "Reboot and select Hyprland in TinyDM."
 log ""
 log "[hyprgrass] On your first Hyprland boot,"
 log "hyprgrass will be installed automatically"
