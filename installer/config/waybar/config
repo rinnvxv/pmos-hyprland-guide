@@ -19,9 +19,9 @@
   },
 
   "network": {
-    "format-wifi": "  {signalStrength}%",
-    "format-ethernet": "󰈀  Connected",
-    "format-disconnected": "  Offline"
+    "format-wifi": "{signalStrength}%",
+    "format-ethernet": "Connected",
+    "format-disconnected": "Offline"
   },
 
   "battery": {
@@ -31,10 +31,10 @@
   },
 
   "cpu": {
-    "format": "  {usage}%"
+    "format": "{usage}%"
   },
 
   "memory": {
-    "format": "  {used}GB"
+    "format": "{used}GB"
   }
 }
