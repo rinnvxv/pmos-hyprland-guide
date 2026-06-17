@@ -1,13 +1,11 @@
 #!/bin/ash
 # ============================================================
-#  pmos_hypr.sh
-#  postmarketOS — Hyprland + hyprgrass + file selector
-#  target shell: ash
+#  Scripts for Hyprland install to postmarketOS
+#  postmarketOS — Hyprland + Hyprgrass
 # ============================================================
 
 set -e
 
-HYPRLAND_VERSION="v0.54.3"
 TEMP_DIR="$HOME/.pmos_hypr_temp"
 
 log()  { printf '\033[1;32m[+]\033[0m %s\n' "$1"; }
@@ -43,6 +41,10 @@ sudo apk add --no-interactive \
 
 sudo chmod +s /usr/bin/brightnessctl
 
+HYPRLAND_VERSION="v$(apk info hyprland 2>/dev/null | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
+[ -z "$HYPRLAND_VERSION" ] && die "Failed to detect Hyprland version"
+log "Detected Hyprland version: $HYPRLAND_VERSION"
+
 # ──────────────────────────────────────────────────────────
 # 3. xdg-desktop-portal (file selector)
 # ──────────────────────────────────────────────────────────
@@ -67,7 +69,8 @@ sudo apk add --no-interactive \
     pixman-dev libdrm-dev wayland-protocols wayland-dev \
     libinput-dev libxkbcommon-dev pango-dev cairo-dev \
     libxcursor-dev re2-dev muparser-dev \
-    hyprwire hyprwayland-scanner \
+    hyprwire hyprwayland-scanner pugixml-dev hyprutils-dev aquamarine-dev \
+    hyprlang-dev hyprcursor-dev hyprgraphics-dev xcb-util-errors-dev tomlplusplus-dev \
     python3 pkgconf
 
 # ──────────────────────────────────────────────────────────
@@ -112,15 +115,7 @@ command -v hyprpm > /dev/null 2>&1 || die "hyprpm installation failed"
 log "hyprpm installed successfully"
 
 # ──────────────────────────────────────────────────────────
-# 7. Install hyprgrass
-# ──────────────────────────────────────────────────────────
-log "Installing hyprgrass..."
-hyprpm update
-hyprpm add https://github.com/horriblename/hyprgrass
-hyprpm enable hyprgrass
-
-# ──────────────────────────────────────────────────────────
-# 8. Download & apply dotfiles
+# 7. Download & apply dotfiles
 # ──────────────────────────────────────────────────────────
 log "Downloading dotfiles..."
 cd "$TEMP_DIR"
