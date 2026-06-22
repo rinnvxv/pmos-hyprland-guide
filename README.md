@@ -15,6 +15,7 @@ A setup guide and dotfiles for running Hyprland on postmarketOS.
 
 3. Place the config files below into ~/.config.
    - fuzzel config is required for wvkbd to work inside fuzzel.
+   - Fix Screenshot scripts permissions: `sudo chmod +x ~/.config/hypr/scripts/screenshot.sh`
 
 4. Log out, select Hyprland from the lock screen, and log in.
    - If Hyprland doesn't appear on the lock screen, install tinydm and try again:
