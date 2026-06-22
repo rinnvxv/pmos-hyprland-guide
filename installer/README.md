@@ -16,10 +16,11 @@ Tested on a Google Pixel 3 (blueline).
 - Swipe up: Launch browser ("firefox-esr")
 - Tap: Close the currently focused window
 - Long press: Turn off the screen
+- Pinch out: Take a screenshot
 
 ### Four-Finger Gestures
 
-- Tap: Take a screenshot ("grim")
+- Tap: Screen Rotate
 - Long press: Exit Hyprland
 
 ### Edge Gestures
