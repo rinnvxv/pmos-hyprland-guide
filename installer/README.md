@@ -48,5 +48,5 @@ $ `sudo -v && curl -fsSL https://raw.githubusercontent.com/rinnvxv/pmos-hyprland
 
 ## Notes
 
-- I recommend selecting Phosh as the desktop environment during "pmbootstrap init".
+- I recommend selecting `Phosh` as the desktop environment during `pmbootstrap init`.
 - If you encounter DNS-related errors while running the script, try running it again. The script temporarily switches DNS to "8.8.8.8" as a workaround, but DNS issues may still occur occasionally.
