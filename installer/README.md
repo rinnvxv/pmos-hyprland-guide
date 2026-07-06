@@ -6,7 +6,7 @@ Tested on a Google Pixel 3 (blueline).
 
 ## How to Run
 
-`sudo -v && curl -fsSL https://raw.githubusercontent.com/rinnvxv/pmos-hyprland-guide/main/installer/pmos_hypr.sh | sh`
+$ `sudo -v && curl -fsSL https://raw.githubusercontent.com/rinnvxv/pmos-hyprland-guide/main/installer/pmos_hypr.sh | sh`
 
 ## Gesture Configuration
 
