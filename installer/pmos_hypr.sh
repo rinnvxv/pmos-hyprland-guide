@@ -40,8 +40,6 @@ sudo apk add --no-interactive \
     swaylock font-awesome font-jetbrains-mono-nerd
 
 sudo chmod +s /usr/bin/brightnessctl
-sudo chmod +x $HOME/.config/hypr/scripts/screenshot.sh
-sudo chmod +x $HOME/.config/hypr/scripts/toggle_rotate.sh
 
 HYPRLAND_VERSION="v$(apk info hyprland 2>/dev/null | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
 [ -z "$HYPRLAND_VERSION" ] && die "Failed to detect Hyprland version"
