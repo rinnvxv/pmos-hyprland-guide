@@ -138,13 +138,15 @@ if [ -d "$TEMP_DIR/repo/installer/config" ]; then
     mkdir -p "$HOME/.config"
     cp -r "$TEMP_DIR/repo/installer/config/." "$HOME/.config/"
     log "Dotfiles applied → ~/.config/"
-    # Set permission to install_hyprgrass.sh
-    if [ -f "$HOME/.config/hypr/scripts/install_hyprgrass.sh" ]; then
-        chmod +x "$HOME/.config/hypr/scripts/install_hyprgrass.sh"
+
+    # Set permissions after dotfiles are applied
+    [ -f "$HOME/.config/hypr/scripts/install_hyprgrass.sh" ] && \
+        chmod +x "$HOME/.config/hypr/scripts/install_hyprgrass.sh" && \
         log "Permissions set for install_hyprgrass.sh"
-    fi
-else
-    warn "installer/config not found in repo — skipping dotfiles."
+    [ -f "$HOME/.config/hypr/scripts/screenshot.sh" ] && \
+        chmod +x "$HOME/.config/hypr/scripts/screenshot.sh"
+    [ -f "$HOME/.config/hypr/scripts/toggle_rotate.sh" ] && \
+        chmod +x "$HOME/.config/hypr/scripts/toggle_rotate.sh"
 fi
 
 # ──────────────────────────────────────────────────────────
