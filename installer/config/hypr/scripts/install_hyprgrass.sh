@@ -25,5 +25,5 @@ echo "[+] hyprgrass installed! This window will close in 3 seconds."
 hyprpm reload -n
 sleep 3
 
-rm -rf ~/.config/hypr/scripts
+rm ~/.config/hypr/scripts/install_hyprgrass.sh
 hyprctl dispatch killactive
