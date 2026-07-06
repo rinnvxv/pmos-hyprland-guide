@@ -31,7 +31,7 @@ Keybindings
 - Super + Q:          Close window
 - Super + M:          Exit Hyprland
 - Super + Shift + P: Screenshot (3s delay)
-- Super + Shift + ↑↓: Adjust brightness (±5%)
+- Super + Shift + ↑↓: Adjust brightness (±10%)
 - Swipe from Edge:    Change Workspace
 
 Tested on: OnePlus 6T (fajita, SDM845) and Google Pixel 3 (blueline, SDM845).
