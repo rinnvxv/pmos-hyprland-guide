@@ -8,15 +8,28 @@ Tested on a Google Pixel 3 (blueline).
 
 $ `sudo -v && curl -fsSL https://raw.githubusercontent.com/rinnvxv/pmos-hyprland-guide/main/installer/pmos_hypr.sh | sh`
 
+## Keybinds
+- Volume Up:          Open application launcher (fuzzel)
+- Volume Down:        Toggle virtual keyboard (wvkbd)
+- Super + Enter:      Open terminal
+- Super + D:          Open application launcehr
+- Super + E:          File manager (nautilus)
+- Super + W:          Web browser (firefox-esr)
+- Super + Q:          Close window
+- Super + M:          Exit Hyprland
+- Super + Shift + P: Screenshot (3s delay)
+- Super + Shift + ↑↓: Adjust brightness (±10%)
+
 ## Gesture Configuration
 
 ### Three-Finger Gestures
 
-- Swipe down: Launch terminal ("alacritty")
-- Swipe up: Launch browser ("firefox-esr")
+- Swipe down: Launch terminal
+- Swipe up: Launch browser
 - Tap: Close the currently focused window
 - Long press: Turn off the screen
 - Pinch out: Take a screenshot
+- Swipe edge: Change workspaces
 
 ### Four-Finger Gestures
 
@@ -30,8 +43,8 @@ $ `sudo -v && curl -fsSL https://raw.githubusercontent.com/rinnvxv/pmos-hyprland
 
 ## Hardware Keys
 
-- Volume Up: Open application launcher ("fuzzel")
-- Volume Down: Toggle virtual keyboard ("wvkbd")
+- Volume Up: Open application launcher
+- Volume Down: Toggle virtual keyboard
 
 ## Notes
 
