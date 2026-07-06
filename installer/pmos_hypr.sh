@@ -37,7 +37,7 @@ sudo apk add --no-interactive \
     hyprland hyprland-protocols xwayland \
     alacritty waybar swaybg swaync fuzzel \
     wvkbd jq brightnessctl grim tinydm \
-    swaylock font-awesome font-jetbrains-mono-nerd
+    swaylock font-awesome font-jetbrains-mono-nerd neofetch
 
 sudo chmod +s /usr/bin/brightnessctl
 
