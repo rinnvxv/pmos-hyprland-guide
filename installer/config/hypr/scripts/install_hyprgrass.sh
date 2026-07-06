@@ -20,6 +20,7 @@ echo "[+] DNS restored"
 
 sed -i 's|exec-once = \$terminal -e sh -c "~/.config/hypr/scripts/install_hyprgrass.sh; exec \$SHELL"|exec-once = \$terminal -e sh -c "neofetch; exec \$SHELL"|' ~/.config/hypr/hyprland.conf
 
+hyprpm update
 echo "[+] hyprgrass installed! This window will close in 3 seconds."
 hyprpm reload -n
 sleep 3
