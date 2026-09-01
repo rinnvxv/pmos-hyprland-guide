@@ -12,7 +12,7 @@ $ `sudo -v && curl -fsSL https://raw.githubusercontent.com/rinnvxv/pmos-hyprland
 - Volume Up:          Open application launcher (fuzzel)
 - Volume Down:        Toggle virtual keyboard (wvkbd)
 - Super + Enter:      Open terminal
-- Super + D:          Open application launcehr
+- Super + D:          Open application launcher
 - Super + E:          File manager (nautilus)
 - Super + W:          Web browser (firefox-esr)
 - Super + Q:          Close window
