@@ -27,7 +27,7 @@ log "Created temp directory: $TEMP_DIR"
 # 1. System upgrade
 # ──────────────────────────────────────────────────────────
 log "Upgrading system..."
-sudo apk upgrade || warn "System upgrade failed (package conflict) — continuing anyway..."
+sudo apk upgrade || warn "System upgrade failed - Please complete the upgrade manually and re-run the script."
 
 # ──────────────────────────────────────────────────────────
 # 2. Hyprland & base packages
@@ -37,7 +37,8 @@ sudo apk add --no-interactive \
     hyprland hyprland-protocols xwayland \
     alacritty waybar swaybg swaync fuzzel \
     wvkbd jq brightnessctl grim tinydm \
-    swaylock font-awesome font-jetbrains-mono-nerd neofetch
+    swaylock font-awesome font-jetbrains-mono-nerd neofetch \
+    kitty-terminfo
 
 sudo chmod +s /usr/bin/brightnessctl
 
